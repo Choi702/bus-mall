@@ -1,12 +1,13 @@
 'user strict'
 
-
+// global target///
 var skyMallArray = [];
 var totalImageClicks = 0;
 var totalClicks = 0;
 
+renderTotalAsList();
 
-function skyMallProduct (imageName, src){
+function SkyMallProduct (imageName, src){
   this.numberOfClicks = 0;
   this.imageName = imageName;
   this.imageSrc = src;
@@ -14,7 +15,7 @@ function skyMallProduct (imageName, src){
   
 }
 
-skyMallProduct.prototype.renderskyMallHtml = function() {
+SkyMallProduct.prototype.renderskyMallHtml = function() {
   var target = document.getElementById('product-list');
   var productClicksLi = document.createElement('li');
   // console.log(skyMallArray);
@@ -33,7 +34,7 @@ skyMallProduct.prototype.renderskyMallHtml = function() {
 
   
 
-
+// adding event listner
 function handleClickOnProduct(event) {
   
   if (event.target.tagName === 'IMG') {
@@ -57,15 +58,29 @@ function handleClickOnProduct(event) {
       var productList = document.getElementById('product-list');
       // productList.innerHTML = '';
       
-     
+      
       productList.removeEventListener('click', handleClickOnProduct);
       
     }
     
   } 
 }
+function renderTotalAsList(){
+  for (var i = 0; i < skyMallArray.length; i++){
+    var list = document.getElementById('Product_Vote');
+    
+    var listItem = document.createElement('li');
+    listItem.textContent = skyMallArray[i].imageName + ' : ' + skyMallArray[i].
+    numberOfClicks + ' clicks';
+    
+    list.appendChild(listItem);
+    
+    
+  }
+}
 
 
+// Random numnber generator//
 function displayskyMall(){
   var index0 = Math.floor(Math.random() * skyMallArray.length);
   var index1 = Math.floor(Math.random() * skyMallArray.length);
@@ -100,6 +115,7 @@ function displayskyMall(){
   
 }
 
+
 //====function calls ==================
 
 // handleClickOnProduct();
@@ -107,12 +123,12 @@ var listOfProduct = document.getElementById('product-list');
 listOfProduct.addEventListener('click', handleClickOnProduct);
 // document.addEventListener('click', handleClickOnProduct);
 
-new skyMallProduct('Dragon', 'img/dragon.jpg');
-new skyMallProduct('Bubblegum', 'img/bubblegum.jpg');
-new skyMallProduct('Dog Duck', 'img/dog-duck.jpg');
-new skyMallProduct('Boots', 'img/boots.jpg');
-new skyMallProduct('Chair', 'img/chair.jpg');
-new skyMallProduct('Bathroom', 'img/bathroom.jpg');
+new SkyMallProduct('Dragon', 'img/dragon.jpg');
+new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg');
+new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg');
+new SkyMallProduct('Boots', 'img/boots.jpg');
+new SkyMallProduct('Chair', 'img/chair.jpg');
+new SkyMallProduct('Bathroom', 'img/bathroom.jpg');
 
 
 skyMallArray[0].renderskyMallHtml();
@@ -121,9 +137,12 @@ skyMallArray[2].renderskyMallHtml();
 skyMallArray[3].renderskyMallHtml();
 skyMallArray[4].renderskyMallHtml();
 skyMallArray[5].renderskyMallHtml();
+renderTotalAsList();
 
-var getNumberToDisplay = document.getElementById('Product_Vote')
-var newLi = document.createElement('li')
-newLi.textContent = ('hello');
-getNumberToDisplay.appendChild(newLi)
+
+
+// var getNumberToDisplay = document.getElementById('Product_Vote')
+// var newLi = document.createElement('li')
+// newLi.textContent = ('Totalclicks');
+// getNumberToDisplay.appendChild(newLi)
 
