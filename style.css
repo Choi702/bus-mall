@@ -1,0 +1,10 @@
+#product-list {
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+
+img {
+  margin: 10px
+  
+}
