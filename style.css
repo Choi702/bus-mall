@@ -1,18 +1,27 @@
 
 
 body{
-  display: flex;
-  right: auto;
+  /* display: flex; */
+  /* right: auto;  */
 
   background-color: chocolate;
   color: white;
   
 }
 
-img {
-  width: 250px;
-  height: 190px;
-
+#product-list > li {
+  float: left;
+  width:350px; 
+  height:190px; 
+  
+  padding-top:20px; 
+  padding-left:15px; 
+  padding-right:15px; 
   
 }
+img{
+  width: 300px
+}
+
+
 
