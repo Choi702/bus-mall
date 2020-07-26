@@ -162,9 +162,9 @@ var listOfProduct = document.getElementById('product-list');
 listOfProduct.addEventListener('click', handleClickOnProduct);
 // document.addEventListener('click', handleClickOnProduct);
 
-new SkyMallProduct('Dragon', 'img/dragon.jpg');
-new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg');
-new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg');
+new SkyMallProduct('Dragon', 'img/dragon.jpg', 0);
+new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg', 1);
+new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg' , 2);
 
 new SkyMallProduct('Chair', 'img/chair.jpg');
 new SkyMallProduct('Bag', 'img/bag.jpg');
