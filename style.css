@@ -1,8 +1,7 @@
 
 
 body{
-  /* display: flex; */
-  /* right: auto;  */
+
 
   background-color: chocolate;
   color: white;
@@ -10,18 +9,45 @@ body{
 }
 
 #product-list > li {
-  float: left;
-  width:350px; 
-  height:190px; 
+ float: right;
+  width:200px; 
+  height:50px; 
   
   padding-top:20px; 
   padding-left:15px; 
   padding-right:15px; 
   
+  
 }
 img{
-  width: 300px
+  border-radius: 50%;
+
+  width: 200px
+  
+}
+
+#product-love > li {
+ bottom: 5%;
+
+}
+
+
+section {
+  float: left;
+  width:700px; 
+  height:250px; 
+  
+  padding-top:20px; 
+  padding-left:15px; 
+  padding-right:15px;
+
 }
 
 
 
+
+h1 { 
+  border-width: 5px;
+  border: double black;
+  text-align: center; 
+} 
