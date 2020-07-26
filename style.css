@@ -21,10 +21,10 @@ body{
   
 }
 img{
-  border-radius: 40%;
+  border-radius: 30%;
  
 
-  width: 180px
+  width: 120px
   
   
 }
@@ -36,8 +36,8 @@ img{
 
 
 section {
-  float: left;
-  width:700px; 
+float: right;
+  width:600px; 
   height:250px; 
   
   padding-top:20px; 
