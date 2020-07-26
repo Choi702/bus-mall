@@ -220,8 +220,8 @@ function myGraphChart() {
 getChartData(); // to get the data for the product shown and number of clicks
   // var chartArray = [SkyMallArray[0].imageName, 'Dragon', 'Bubblegum', 'Dog Duck', 'Boots', 'Chair', 'Bathroom'];
   var ctx = document.getElementById('myChart').getContext('2d');
-  ctx.canvas.width = 150;
-  ctx.canvas.height = 200;
+  ctx.canvas.width = 100;
+  ctx.canvas.height = 100;
   var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
@@ -267,8 +267,8 @@ getChartData(); // to get the data for the product shown and number of clicks
 }
 
 var ctx2 = document.getElementById('myChart2').getContext('2d');
-ctx2.canvas.width = 150;
-ctx2.canvas.height = 200;
+ctx2.canvas.width = 100;
+ctx2.canvas.height = 100;
 var myChart = new Chart(ctx2, {
   type: 'horizontalBar',
   data: {
