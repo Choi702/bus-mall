@@ -6,11 +6,13 @@
 var SkyMallArray = [];
 var totalImageClicks = 0;
 var totalClicks = 0;
-var totalDisplayImages =[5, 0, 3];
+var totalDisplayImages =[0, 1, 2, ];
 var pageRefreshTotal =0;
 
 document.onload = function(){
-  SkyMallArray = JSON.parse(localStorage.getItem('storedItems')) || SkyMallArray;
+  var getSkyMallArray = localStorage.getItem('storedItems');
+  SkyMallArray = JSON.parse(getSkyMallArray);
+  console.log('SkyMallArray', SkyMallArray);
 }
 function SkyMallProduct(imageName, src) {
   this.numberOfClicks = 0;
@@ -58,6 +60,7 @@ function handleClickOnProduct(event) {
     for (var productIndex = 0; productIndex < SkyMallArray.length; productIndex++) {
       if (SkyMallArray[productIndex].imageSrc === event.target.getAttribute('src')) {
         SkyMallArray[productIndex].numberOfClicks++;
+
         var contents = JSON.stringify(SkyMallArray);
         localStorage.setItem('storedItems', contents);
         
@@ -71,6 +74,7 @@ function handleClickOnProduct(event) {
       
       productList.removeEventListener('click', handleClickOnProduct);
       myGraphChart();
+      myVoteChart();
     }
     
   }
@@ -95,21 +99,21 @@ function renderTotalAsList() {
 
 // Random numnber generator//
 function displayskyMall() {
-  // document.getElementById("product-list").innerHTML = "";
+  document.getElementById("product-list").innerHTML = "";
   var index0 = Math.floor(Math.random() * SkyMallArray.length);
   var index1 = Math.floor(Math.random() * SkyMallArray.length);
   while(index1 === totalDisplayImages[0] || index1 === totalDisplayImages[1]){
     index1 = Math.floor(Math.random() * SkyMallArray.length);
   }
-  var index2 = Math.floor(Math.random() * SkyMallArray.length);
-  while(index0 ===  index2 || index1 === index2){
-    index2 = Math.floor(Math.random() * SkyMallArray.length);
-  }
-  var index0 = Math.floor(Math.random() * SkyMallArray.length);
-  while( index2 === index0 || index1 === index0){
 
-  var index0 = Math.floor(Math.random() * SkyMallArray.length);
+
+  var index2 = Math.floor(Math.random() * SkyMallArray.length);
+  
+
+  {
+    index1 = Math.floor(Math.random() * SkyMallArray.length);
   }
+  
   
 
   
@@ -127,7 +131,7 @@ function displayskyMall() {
   
   
   var skyMallList = document.getElementById('product-list');
-  skyMallList.innerHTML = '';
+  // skyMallList.innerHTML = '';
   newskyMall0.renderskyMallHtml();
   newskyMall1.renderskyMallHtml();
   newskyMall2.renderskyMallHtml();
@@ -137,18 +141,6 @@ function displayskyMall() {
   
   
 }
-
-// As a marketeer, I want to prevent users from seeing the same image in two subsequent iterations, so that they are not biased.
-// Update your algorithm to randomly generate three unique product images from the images directory.
-// Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
-// As a user, I would like to track how many times a product has appeared in a voting session, so that I can track analytics on each piece of data.
-// Add an additional property to your constructor function that tracks the number of times the product has been shown.
-// Update this new property every time the product is shown as one of the three options on the screen for the viewer to choose.
-// As a marketing manager, I would like a visual representation of how many times a product was clicked so that I can visually analyze the results.
-
-// Using ChartJS (imported from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (hint: don’t forget about the <canvas> tags)
-// Place the bar chart in the section located beneath your three product images
-// The bar charts should only appear after all voting data has been collected.
 
 
 
@@ -162,9 +154,9 @@ var listOfProduct = document.getElementById('product-list');
 listOfProduct.addEventListener('click', handleClickOnProduct);
 // document.addEventListener('click', handleClickOnProduct);
 
-new SkyMallProduct('Dragon', 'img/dragon.jpg', 0);
-new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg', 1);
-new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg' , 2);
+new SkyMallProduct('Dragon', 'img/dragon.jpg');
+new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg');
+new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg' );
 
 new SkyMallProduct('Chair', 'img/chair.jpg');
 new SkyMallProduct('Bag', 'img/bag.jpg');
@@ -264,19 +256,18 @@ getChartData(); // to get the data for the product shown and number of clicks
     }
   });
 
-}
-
-var ctx2 = document.getElementById('myChart2').getContext('2d');
-ctx2.canvas.width = 100;
-ctx2.canvas.height = 100;
-var myChart = new Chart(ctx2, {
-  type: 'horizontalBar',
-  data: {
-    labels: ['Dragon', 'Bubblegum', 'Dog Duck', 'Boots', 'Chair', 'Bathroom', 'Bag', 'Banana', 'Breakfast', 'Cthulhu', 'Pen', 'Pet-Sweep', 'Scissors'],
-    datasets: [{
-      label: '# of Vote',
-      data: productShownArray,
-      backgroundColor: [
+  
+  var ctx2 = document.getElementById('myChart2').getContext('2d');
+  ctx2.canvas.width = 100;
+  ctx2.canvas.height = 100;
+  var myChart = new Chart(ctx2, {
+    type: 'horizontalBar',
+    data: {
+      labels: ['Dragon', 'Bubblegum', 'Dog Duck', 'Boots', 'Chair', 'Bathroom', 'Bag', 'Banana', 'Breakfast', 'Cthulhu', 'Pen', 'Pet-Sweep', 'Scissors'],
+      datasets: [{
+        label: '# of Vote',
+        data: productShownArray,
+        backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
@@ -285,8 +276,8 @@ var myChart = new Chart(ctx2, {
           'rgba(255, 159, 64, 0.2)',
           'rgba(255, 159, 64, 0.2)',
           'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
+        ],
+        borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
@@ -295,21 +286,22 @@ var myChart = new Chart(ctx2, {
           'rgba(255, 159, 64, 1)',
           'rgba(153, 102, 255, 1)',
           'rgba(153, 102, 255, 1)'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
+        ],
+        borderWidth: 1
       }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-});
-
+  });
+  
+};
 
 
 
