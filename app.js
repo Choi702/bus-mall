@@ -1,15 +1,13 @@
 'user strict'
 
-
- 
 // global target///
 var SkyMallArray = [];
 var totalImageClicks = 0;
 var totalClicks = 0;
-var totalDisplayImages =[0, 1, 2, ];
-var pageRefreshTotal =0;
+var totalDisplayImages = [0, 1, 2,];
+var pageRefreshTotal = 0;
 
-document.onload = function(){
+document.onload = function () {
   var getSkyMallArray = localStorage.getItem('storedItems');
   SkyMallArray = JSON.parse(getSkyMallArray);
   console.log('SkyMallArray', SkyMallArray);
@@ -19,80 +17,76 @@ function SkyMallProduct(imageName, src) {
   this.imageName = imageName;
   this.imageSrc = src;
   this.productShown = 0; //created  to show product shown
-  this.productRefresh = 0; 
+  this.productRefresh = 0;
   SkyMallArray.push(this);
-  
+
 }
 SkyMallProduct.prototype.renderskyMallHtml = function () {
   var target = document.getElementById('product-list');
   var productClicksLi = document.createElement('li');
   // console.log(skyMallArray);
-  
+
   var productImg = document.createElement('img');
   productImg.src = this.imageSrc;
   productImg.alt = this.imageName;
   productClicksLi.appendChild(productImg);
-  
+
   var productTextP = document.createElement('p');
   productTextP.textContent = this.imageName;
   productClicksLi.appendChild(productTextP);
-  
+
   target.appendChild(productClicksLi);
-  
+
 };
-
-
 
 // adding event listner
 
 function handleClickOnProduct(event) {
-  
+
   if (event.target.tagName === 'IMG') {
-    
+
     totalClicks++;
-    
-    
+
+
     renderTotalAsList();
-    
+
     //we need to redisplay totalClicks everytime its clicked. In order to do that you have to keep feeding the html a new number everytime it gets clicked here
-    
-    
+
     for (var productIndex = 0; productIndex < SkyMallArray.length; productIndex++) {
       if (SkyMallArray[productIndex].imageSrc === event.target.getAttribute('src')) {
         SkyMallArray[productIndex].numberOfClicks++;
-
+        
         var contents = JSON.stringify(SkyMallArray);
         localStorage.setItem('storedItems', contents);
-        
       }
     }
     displayskyMall();
-    
+
     if (totalClicks === 10) {
       var productList = document.getElementById('product-list');
       // productList.innerHTML = '';
-      
+
       productList.removeEventListener('click', handleClickOnProduct);
       myGraphChart();
       myVoteChart();
     }
-    
+
   }
 }
 function renderTotalAsList() {
   //make sure to delete what is already in the list before removing
   document.getElementById("product-vote").innerHTML = "";
   for (var i = 0; i < SkyMallArray.length; i++) {
-    
-    
+
+
     var list = document.getElementById('product-vote');
     var listItem = document.createElement('li');
     listItem.textContent = 'the image ' + SkyMallArray[i].imageName + ' : ' + SkyMallArray[i].numberOfClicks + ' click' + ' shown ' + SkyMallArray[i].productShown;
 
     list.appendChild(listItem);
-    
+
     console.log(renderTotalAsList);
-    
+
   }
 }
 
@@ -102,49 +96,33 @@ function displayskyMall() {
   document.getElementById("product-list").innerHTML = "";
   var index0 = Math.floor(Math.random() * SkyMallArray.length);
   var index1 = Math.floor(Math.random() * SkyMallArray.length);
-  while(index1 === totalDisplayImages[0] || index1 === totalDisplayImages[1]){
+  while (index1 === totalDisplayImages[0] || index1 === totalDisplayImages[1]) {
     index1 = Math.floor(Math.random() * SkyMallArray.length);
   }
 
 
   var index2 = Math.floor(Math.random() * SkyMallArray.length);
-  
+
 
   {
     index1 = Math.floor(Math.random() * SkyMallArray.length);
   }
-  
-  
 
-  
-
-  
   var newskyMall0 = SkyMallArray[index0];
   var newskyMall1 = SkyMallArray[index1];
   var newskyMall2 = SkyMallArray[index2];
-  newskyMall0.productShown ++  //capture image 
-  newskyMall1.productShown ++
-  newskyMall2.productShown ++ 
+  newskyMall0.productShown++  //capture image 
+  newskyMall1.productShown++
+  newskyMall2.productShown++
 
 
-  
-  
-  
   var skyMallList = document.getElementById('product-list');
   // skyMallList.innerHTML = '';
   newskyMall0.renderskyMallHtml();
   newskyMall1.renderskyMallHtml();
   newskyMall2.renderskyMallHtml();
-  
-  
-  
-  
-  
+
 }
-
-
-
-  
 
 
 //====function calls ==================
@@ -156,7 +134,7 @@ listOfProduct.addEventListener('click', handleClickOnProduct);
 
 new SkyMallProduct('Dragon', 'img/dragon.jpg');
 new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg');
-new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg' );
+new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg');
 
 new SkyMallProduct('Chair', 'img/chair.jpg');
 new SkyMallProduct('Bag', 'img/bag.jpg');
@@ -168,8 +146,6 @@ new SkyMallProduct('Cthulhu', 'img/cthulhu.jpg');
 new SkyMallProduct('Pen', 'img/pen.jpg');
 new SkyMallProduct('Pet-Sweep', 'img/pet-sweep.jpg');
 new SkyMallProduct('Scissors', 'img/scissors.jpg');
-
-
 
 
 
@@ -190,26 +166,21 @@ renderTotalAsList();
 
 var clickArray = [];
 var productShownArray = [];
-function getChartData(){
-for (var i = 0; i < SkyMallArray.length; i++){
-  console.log('hello');
+function getChartData() {
+  for (var i = 0; i < SkyMallArray.length; i++) {
+    console.log('hello');
 
- clickArray.push(SkyMallArray[i].numberOfClicks);
+    clickArray.push(SkyMallArray[i].numberOfClicks);
 
- productShownArray.push(SkyMallArray[i].productShown);
+    productShownArray.push(SkyMallArray[i].productShown);ß
 
-
- 
+  }
 }
-}
-
-
-
 
 //============================== Chart ========================================
 
 function myGraphChart() {
-getChartData(); // to get the data for the product shown and number of clicks
+  getChartData(); // to get the data for the product shown and number of clicks
   // var chartArray = [SkyMallArray[0].imageName, 'Dragon', 'Bubblegum', 'Dog Duck', 'Boots', 'Chair', 'Bathroom'];
   var ctx = document.getElementById('myChart').getContext('2d');
   ctx.canvas.width = 100;
@@ -230,7 +201,7 @@ getChartData(); // to get the data for the product shown and number of clicks
           'rgba(255, 159, 64, 0.2)',
           'rgba(255, 159, 64, 0.2)',
           'rgba(255, 159, 64, 0.2)'
-          
+
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -256,7 +227,7 @@ getChartData(); // to get the data for the product shown and number of clicks
     }
   });
 
-  
+
   var ctx2 = document.getElementById('myChart2').getContext('2d');
   ctx2.canvas.width = 100;
   ctx2.canvas.height = 100;
@@ -300,7 +271,7 @@ getChartData(); // to get the data for the product shown and number of clicks
       }
     }
   });
-  
+
 };
 
 
