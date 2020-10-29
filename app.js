@@ -7,11 +7,6 @@ var totalClicks = 0;
 var totalDisplayImages = [0, 1, 2,];
 var pageRefreshTotal = 0;
 
-document.onload = function () {
-  var getSkyMallArray = localStorage.getItem('storedItems');
-  SkyMallArray = JSON.parse(getSkyMallArray);
-  console.log('SkyMallArray', SkyMallArray);
-}
 function SkyMallProduct(imageName, src) {
   this.numberOfClicks = 0;
   this.imageName = imageName;
@@ -19,7 +14,13 @@ function SkyMallProduct(imageName, src) {
   this.productShown = 0; //created  to show product shown
   this.productRefresh = 0;
   SkyMallArray.push(this);
-
+  
+}
+document.onload = function () {
+  console.log('where definetly here')
+  var getSkyMallArray = localStorage.getItem('storedItems');
+  SkyMallArray = JSON.parse(getSkyMallArray);
+  console.log('SkyMallArray', SkyMallArray);
 }
 SkyMallProduct.prototype.renderskyMallHtml = function () {
   var target = document.getElementById('product-list');
@@ -56,6 +57,7 @@ function handleClickOnProduct(event) {
       if (SkyMallArray[productIndex].imageSrc === event.target.getAttribute('src')) {
         SkyMallArray[productIndex].numberOfClicks++;
         
+       
         var contents = JSON.stringify(SkyMallArray);
         localStorage.setItem('storedItems', contents);
       }
@@ -172,7 +174,7 @@ function getChartData() {
 
     clickArray.push(SkyMallArray[i].numberOfClicks);
 
-    productShownArray.push(SkyMallArray[i].productShown);ß
+    productShownArray.push(SkyMallArray[i].productShown);
 
   }
 }
