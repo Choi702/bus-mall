@@ -7,20 +7,29 @@ var totalClicks = 0;
 var totalDisplayImages = [0, 1, 2,];
 var pageRefreshTotal = 0;
 
-function SkyMallProduct(imageName, src) {
-  this.numberOfClicks = 0;
+function productOutput() {
+ 
+  var getSkyMallArray = localStorage.getItem('storedItems');
+
+  if(getSkyMallArray){ 
+    outputMallArray = JSON.parse(getSkyMallArray);
+  
+    for(let i =0; i < outputMallArray.length; i++){
+      new SkyMallProduct(outputMallArray[i].imageName, outputMallArray[i].imageSrc, outputMallArray[i].numberOfClicks, outputMallArray[i].productShown);
+    }
+  
+  }
+}
+productOutput();
+
+function SkyMallProduct(imageName, src, numberOfClicks, productShown) {
+  this.numberOfClicks = numberOfClicks;
   this.imageName = imageName;
   this.imageSrc = src;
-  this.productShown = 0; //created  to show product shown
+  this.productShown = productShown; //created  to show product shown
   this.productRefresh = 0;
   SkyMallArray.push(this);
-  
-}
-document.onload = function () {
-  console.log('where definetly here')
-  var getSkyMallArray = localStorage.getItem('storedItems');
-  SkyMallArray = JSON.parse(getSkyMallArray);
-  console.log('SkyMallArray', SkyMallArray);
+
 }
 SkyMallProduct.prototype.renderskyMallHtml = function () {
   var target = document.getElementById('product-list');
@@ -56,11 +65,12 @@ function handleClickOnProduct(event) {
     for (var productIndex = 0; productIndex < SkyMallArray.length; productIndex++) {
       if (SkyMallArray[productIndex].imageSrc === event.target.getAttribute('src')) {
         SkyMallArray[productIndex].numberOfClicks++;
-        
-       
-        var contents = JSON.stringify(SkyMallArray);
-        localStorage.setItem('storedItems', contents);
+
+
       }
+      console.log('skyMallArray', SkyMallArray);
+      var contents = JSON.stringify(SkyMallArray);
+      localStorage.setItem('storedItems', contents);
     }
     displayskyMall();
 
@@ -87,7 +97,7 @@ function renderTotalAsList() {
 
     list.appendChild(listItem);
 
-    console.log(renderTotalAsList);
+  
 
   }
 }
@@ -95,7 +105,7 @@ function renderTotalAsList() {
 
 // Random numnber generator//
 function displayskyMall() {
-  document.getElementById("product-list").innerHTML = "";
+  document.getElementById('product-list').innerHTML = "";
   var index0 = Math.floor(Math.random() * SkyMallArray.length);
   var index1 = Math.floor(Math.random() * SkyMallArray.length);
   while (index1 === totalDisplayImages[0] || index1 === totalDisplayImages[1]) {
@@ -133,22 +143,22 @@ function displayskyMall() {
 var listOfProduct = document.getElementById('product-list');
 listOfProduct.addEventListener('click', handleClickOnProduct);
 // document.addEventListener('click', handleClickOnProduct);
-
-new SkyMallProduct('Dragon', 'img/dragon.jpg');
-new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg');
-new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg');
-
-new SkyMallProduct('Chair', 'img/chair.jpg');
-new SkyMallProduct('Bag', 'img/bag.jpg');
-new SkyMallProduct('Banana', 'img/banana.jpg');
-new SkyMallProduct('Bathroom', 'img/bathroom.jpg');
-new SkyMallProduct('Boots', 'img/boots.jpg');
-new SkyMallProduct('Breakfast', 'img/breakfast.jpg');
-new SkyMallProduct('Cthulhu', 'img/cthulhu.jpg');
-new SkyMallProduct('Pen', 'img/pen.jpg');
-new SkyMallProduct('Pet-Sweep', 'img/pet-sweep.jpg');
-new SkyMallProduct('Scissors', 'img/scissors.jpg');
-
+if(SkyMallArray.length === 0){
+  
+new SkyMallProduct('Dragon', 'img/dragon.jpg' , 0, 0);
+new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg', 0, 0);
+new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg', 0, 0);
+new SkyMallProduct('Chair', 'img/chair.jpg', 0, 0);
+new SkyMallProduct('Bag', 'img/bag.jpg', 0, 0);
+new SkyMallProduct('Banana', 'img/banana.jpg', 0, 0);
+new SkyMallProduct('Bathroom', 'img/bathroom.jpg', 0, 0);
+new SkyMallProduct('Boots', 'img/boots.jpg', 0, 0);
+new SkyMallProduct('Breakfast', 'img/breakfast.jpg', 0, 0);
+new SkyMallProduct('Cthulhu', 'img/cthulhu.jpg', 0, 0);
+new SkyMallProduct('Pen', 'img/pen.jpg', 0, 0);
+new SkyMallProduct('Pet-Sweep', 'img/pet-sweep.jpg', 0, 0);
+new SkyMallProduct('Scissors', 'img/scissors.jpg', 0, 0);
+}
 
 
 
@@ -170,7 +180,7 @@ var clickArray = [];
 var productShownArray = [];
 function getChartData() {
   for (var i = 0; i < SkyMallArray.length; i++) {
-    console.log('hello');
+   
 
     clickArray.push(SkyMallArray[i].numberOfClicks);
 
