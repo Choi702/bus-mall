@@ -8,19 +8,22 @@ var totalDisplayImages = [0, 1, 2,];
 var pageRefreshTotal = 0;
 
 function productOutput() {
- 
+
   var getSkyMallArray = localStorage.getItem('storedItems');
 
-  if(getSkyMallArray){ 
+  if (getSkyMallArray) {
     outputMallArray = JSON.parse(getSkyMallArray);
-  
-    for(let i =0; i < outputMallArray.length; i++){
+    
+    //Instantiation
+    for (let i = 0; i < outputMallArray.length; i++) {
       new SkyMallProduct(outputMallArray[i].imageName, outputMallArray[i].imageSrc, outputMallArray[i].numberOfClicks, outputMallArray[i].productShown);
     }
-  
+
   }
 }
 productOutput();
+
+//Constructor
 
 function SkyMallProduct(imageName, src, numberOfClicks, productShown) {
   this.numberOfClicks = numberOfClicks;
@@ -31,6 +34,8 @@ function SkyMallProduct(imageName, src, numberOfClicks, productShown) {
   SkyMallArray.push(this);
 
 }
+//Protoype
+
 SkyMallProduct.prototype.renderskyMallHtml = function () {
   var target = document.getElementById('product-list');
   var productClicksLi = document.createElement('li');
@@ -49,8 +54,7 @@ SkyMallProduct.prototype.renderskyMallHtml = function () {
 
 };
 
-// adding event listner
-
+// Adding event listner
 function handleClickOnProduct(event) {
 
   if (event.target.tagName === 'IMG') {
@@ -97,13 +101,13 @@ function renderTotalAsList() {
 
     list.appendChild(listItem);
 
-  
+
 
   }
 }
 
 
-// Random numnber generator//
+// Random number generator
 function displayskyMall() {
   document.getElementById('product-list').innerHTML = "";
   var index0 = Math.floor(Math.random() * SkyMallArray.length);
@@ -143,21 +147,21 @@ function displayskyMall() {
 var listOfProduct = document.getElementById('product-list');
 listOfProduct.addEventListener('click', handleClickOnProduct);
 // document.addEventListener('click', handleClickOnProduct);
-if(SkyMallArray.length === 0){
-  
-new SkyMallProduct('Dragon', 'img/dragon.jpg' , 0, 0);
-new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg', 0, 0);
-new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg', 0, 0);
-new SkyMallProduct('Chair', 'img/chair.jpg', 0, 0);
-new SkyMallProduct('Bag', 'img/bag.jpg', 0, 0);
-new SkyMallProduct('Banana', 'img/banana.jpg', 0, 0);
-new SkyMallProduct('Bathroom', 'img/bathroom.jpg', 0, 0);
-new SkyMallProduct('Boots', 'img/boots.jpg', 0, 0);
-new SkyMallProduct('Breakfast', 'img/breakfast.jpg', 0, 0);
-new SkyMallProduct('Cthulhu', 'img/cthulhu.jpg', 0, 0);
-new SkyMallProduct('Pen', 'img/pen.jpg', 0, 0);
-new SkyMallProduct('Pet-Sweep', 'img/pet-sweep.jpg', 0, 0);
-new SkyMallProduct('Scissors', 'img/scissors.jpg', 0, 0);
+if (SkyMallArray.length === 0) {
+
+  new SkyMallProduct('Dragon', 'img/dragon.jpg', 0, 0);
+  new SkyMallProduct('Bubblegum', 'img/bubblegum.jpg', 0, 0);
+  new SkyMallProduct('Dog Duck', 'img/dog-duck.jpg', 0, 0);
+  new SkyMallProduct('Chair', 'img/chair.jpg', 0, 0);
+  new SkyMallProduct('Bag', 'img/bag.jpg', 0, 0);
+  new SkyMallProduct('Banana', 'img/banana.jpg', 0, 0);
+  new SkyMallProduct('Bathroom', 'img/bathroom.jpg', 0, 0);
+  new SkyMallProduct('Boots', 'img/boots.jpg', 0, 0);
+  new SkyMallProduct('Breakfast', 'img/breakfast.jpg', 0, 0);
+  new SkyMallProduct('Cthulhu', 'img/cthulhu.jpg', 0, 0);
+  new SkyMallProduct('Pen', 'img/pen.jpg', 0, 0);
+  new SkyMallProduct('Pet-Sweep', 'img/pet-sweep.jpg', 0, 0);
+  new SkyMallProduct('Scissors', 'img/scissors.jpg', 0, 0);
 }
 
 
@@ -180,7 +184,7 @@ var clickArray = [];
 var productShownArray = [];
 function getChartData() {
   for (var i = 0; i < SkyMallArray.length; i++) {
-   
+
 
     clickArray.push(SkyMallArray[i].numberOfClicks);
 
@@ -191,8 +195,10 @@ function getChartData() {
 
 //============================== Chart ========================================
 
+   // to get the data for the product shown and number of clicks
 function myGraphChart() {
-  getChartData(); // to get the data for the product shown and number of clicks
+  getChartData(); 
+  
   // var chartArray = [SkyMallArray[0].imageName, 'Dragon', 'Bubblegum', 'Dog Duck', 'Boots', 'Chair', 'Bathroom'];
   var ctx = document.getElementById('myChart').getContext('2d');
   ctx.canvas.width = 100;
